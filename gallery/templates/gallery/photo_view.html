@@ -1,0 +1,47 @@
+{% extends "gallery/base.html" %} {% block content %}
+
+<div
+  class="background"
+  style="
+        height: 100vh;
+        width: 100vw;
+        z-index: -1;
+        position: fixed;
+        filter: blur(25px);
+        background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+          url({{photo.img.url}}) center/cover no-repeat fixed;
+      "
+  id="pictureView-bg"
+></div>
+
+<div class="row h-100 w-100 mx-auto">
+  <div class="col-md-8 m-auto">
+    <img
+      src="{{photo.img.url}}"
+      alt="pic"
+      style="max-height: 75vh; object-fit: scale-down; cursor: pointer;"
+      id="picture"
+    />
+    <script>
+      document
+        .getElementById("picture")
+        .addEventListener("click", function (event) {
+          window.open("{{photo.instagram}}", "_blank").focus();
+        });
+    </script>
+  </div>
+  <div class="col-md-4 m-auto">
+    <div class="row" id="pictureView-desc">
+      <div class="col p-0">
+        <h6 class="p-2 text-warning">{{photo.title}}</h6>
+      </div>
+      <div class="col">
+        <p class="p-2 m-0 text-light border-left border-secondary">
+          {{photo.description}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

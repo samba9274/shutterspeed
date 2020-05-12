@@ -1,0 +1,136 @@
+{% extends "gallery/base.html" %} {% block content %}
+
+<div class="row m-0 p-0">
+  <div class="col-md-3"></div>
+  <div class="col-md-3" id="sidebar">
+    <div class="row">
+      <div class="col-8 offset-2 mt-4 mb-4">
+        <img
+          src="{{ profile.profile_picture.url }}"
+          alt="profile"
+          class="rounded-circle"
+          id="profile"
+          style="cursor: pointer;"
+        />
+        <script>
+          document
+            .getElementById("profile")
+            .addEventListener("click", function (event) {
+              window.open("{{profile.profile_instagram}}", "_blank").focus();
+            });
+        </script>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10 offset-1">
+        <p class="text-white text-right m-auto" id="profile-text">
+          {{profile.profile_description}}
+        </p>
+      </div>
+    </div>
+    <div class="row ml-3 mr-3">
+      <div class="button col m-3" id="facebook">
+        <i class="fab fa-facebook"></i>
+      </div>
+      <div class="button col m-3" id="twitter">
+        <i class="fab fa-twitter"></i>
+      </div>
+      <div class="button col m-3" id="email">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div class="button col m-3" id="instagram">
+        <i class="fab fa-instagram"></i>
+      </div>
+      <script>
+        document
+          .getElementById("facebook")
+          .addEventListener("click", function (event) {
+            window.open("{{profile.facebook}}", "_blank").focus();
+          });
+        document
+          .getElementById("twitter")
+          .addEventListener("click", function (event) {
+            window.open("{{profile.twitter}}", "_blank").focus();
+          });
+        document
+          .getElementById("email")
+          .addEventListener("click", function (event) {
+            window.open("{{profile.email}}", "_blank").focus();
+          });
+        document
+          .getElementById("instagram")
+          .addEventListener("click", function (event) {
+            window.open("{{profile.page_instagram}}", "_blank").focus();
+          });
+      </script>
+    </div>
+    <div class="col row m-3">
+      <div class="button col-2" id="developer">
+        <i class="fas fa-user-cog"></i>
+      </div>
+      <script>
+        document
+          .getElementById("developer")
+          .addEventListener("click", function (event) {
+            window.open("{{profile.developer_website}}", "_blank").focus();
+          });
+      </script>
+    </div>
+  </div>
+  <div class="col-md-9" id="gallery" style="min-height: 100vh;">
+    <div class="row">
+      {% for photo in photos %}
+      <!-- Picture card start -->
+      <div
+        class="col-xs-6 col-sm-4 col-md-3 m-0 p-0"
+        id="pic-{{photo.id}}"
+        style="overflow: hidden; cursor: pointer;"
+      >
+        <div class="card bg-dark rounded-0 m-0 p-0">
+          <img
+            src="{{ photo.img_thumb.url }}"
+            alt="img"
+            class="card-img m-0 p-0"
+            style="transition: all 0.15s linear;"
+          />
+          <div class="card-img-overlay" style="background: rgba(0, 0, 0, 0.5);">
+            <h5 class="card-title text-uppercase text-white m-0 p-0 text-right">
+              {{photo.title}}
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document
+          .getElementById("pic-{{photo.id}}")
+          .addEventListener("mouseenter", function (event) {
+            document
+              .getElementById("pic-{{photo.id}}")
+              .children[0].children[0].classList.add("hover");
+            document
+              .getElementById("pic-{{photo.id}}")
+              .children[0].children[1].classList.add("invisible");
+          });
+        document
+          .getElementById("pic-{{photo.id}}")
+          .addEventListener("mouseleave", function (event) {
+            document
+              .getElementById("pic-{{photo.id}}")
+              .children[0].children[0].classList.remove("hover");
+            document
+              .getElementById("pic-{{photo.id}}")
+              .children[0].children[1].classList.remove("invisible");
+          });
+        document
+          .getElementById("pic-{{photo.id}}")
+          .addEventListener("click", function (event) {
+            window.open("photo/{{photo.id}}", "_blank").focus();
+          });
+      </script>
+      <!-- Picture card end -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
